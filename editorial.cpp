@@ -21,7 +21,7 @@ char* Editorial::getDireccion()const{
 	return direccion;
 }
 void Editorial::setId(){
-	this->id = new char[20];
+	this->id = new char[18];
 	strcpy(this->id,id);
 }
 void Editorial::setNombre(){

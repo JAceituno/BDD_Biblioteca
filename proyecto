@@ -1,0 +1,22 @@
+2 archivos
+
+Libro
+	ID (ISBN)
+	Nombre
+	Autor
+	Editorial
+	
+Editorial
+	ID
+	Nombre
+	Dirección
+
+CRUD: Create, Retrive, Update, Delete
+Listar cruzado
+AvailList
+Índice lineal
+Búsqueda
+
+C++
+Binary Files
+
