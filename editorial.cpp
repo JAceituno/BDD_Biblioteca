@@ -9,7 +9,9 @@ Editorial::Editorial(char* id, char* nombre, char* direccion){
 	setDireccion(direccion);
 }
 Editorial::~Editorial(){
-
+	delete[] this->id;
+	delete[] this->nombre;
+	delete[] this->direccion;
 }
 char* Editorial::getId()const{
 	return id;

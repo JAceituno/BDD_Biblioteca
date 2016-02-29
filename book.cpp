@@ -10,7 +10,10 @@ Book::Book(char* isbn,char* nombre,char* autor,char* id_editorial){
 	setId_editorial(id_editorial);
 }
 Book::~Book(){
-
+	delete[] this->isbn;
+	delete[] this->nombre;
+	delete[] this->autor;
+	delete[] this->id_editorial:
 }
 char* Book::getIsbn()const{
 	return isbn;

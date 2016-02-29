@@ -8,7 +8,7 @@ Keynode::Keynode(char* key, long int offset){
 	this->offset = offset;
 }
 Keynode::~Keynode(){
-
+	delete[] this->key;
 }
 char* Keynode::getKey()const{
 	return key;
