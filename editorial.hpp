@@ -7,6 +7,8 @@ class Editorial{
 	char* getId()const;
 	char* getNombre()const;
 	char* getDireccion()const;
+	bool isMarked();
+	void setMarked();
 	void setId();
 	void setNombre();
 	void setDireccion();
@@ -14,5 +16,5 @@ class Editorial{
   	char* id;
   	char* nombre;
   	char* direccion;	
-	
+	bool marked;
 };

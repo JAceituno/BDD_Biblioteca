@@ -10,6 +10,8 @@ class Book{
 	char* getNombre()const;
 	char* getAutor()const;
 	char* getId_editorial()const;
+	bool isMarked();
+	void setMarked();
 	void setIsbn(char* isbn);
 	void setNombre(char* nombre);
 	void setAutor(char* autor);

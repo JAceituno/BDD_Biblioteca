@@ -43,3 +43,9 @@ void Book::setId_editorial(char* id_editorial){
 	this->id_editorial = new char[18];
 	strcpy(this->id_editorial,id_editorial);
 }
+bool Book::isMarked(){
+	return marked;
+}
+void Book::setMarked(bool marked){
+	this->marked = marked;
+}

@@ -8,7 +8,8 @@ class Index_file{
 	~Index_file();
 	void add(Keynode);
 	Keynode find(char* key);
-	void reindex();
+	void Reindex_Book(char* file_name, char* index_name);
+	void Reindex_editorial(char* file_name, char* index_name);
   private:
   	vector<Keynode>* lista;	
   	void sort(char* key);

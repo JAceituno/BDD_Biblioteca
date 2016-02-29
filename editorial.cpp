@@ -34,3 +34,9 @@ void Editorial::setDireccion(){
 	this->direccion = new char[30];
 	strcpy(this->direccion,direccion);
 }
+bool Editorial::isMarked(){
+	return marked;
+}
+void Editorial::setMarked(bool marked){
+	this->marked = marked;
+}

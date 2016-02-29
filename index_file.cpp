@@ -23,18 +23,20 @@ Index_file::Index_file(char* file_name){
 		}
 	}
 }
-Index_file::Index_Editorial(char* file_name, char* index_name){
+void Index_file::Reindex_Book(char* file_name, char* index_name){
 	lista = new vector<Keynode>;
 
 	ifstream data_file(file_name,ios::in|ios::binary);
 	if(data_file.good()){
-		data_file.seekg(sizeof(Header_Editorial));
+		data_file.seekg(sizeof(Header_book));
 
 		while(!data_file.eof()){
-			Editorial Editorial;
-			file.read(reinterpret_cast<char*>(&Editorial),sizeof(Editorial));
-			Keynode keynode(Editorial.getKey(),Editorial.getOffset());
-			lista->push_back(keynode);
+			Book book;
+			file.read(reinterpret_cast<char*>(&book),sizeof(Book));
+			if(!book.isMarked()){
+				Keynode keynode(book.getIsbn(),file.tellg());
+				lista->push_back(keynode);
+			}
 		}
 		sort();
 	}
@@ -48,7 +50,7 @@ Index_file::Index_Editorial(char* file_name, char* index_name){
 	index_file.flush();
 	index_file.close();
 }
-Index_file::Index_editorial(char* file_name, char* index_name){
+void Index_file::Reindex_editorial(char* file_name, char* index_name){
 	ista = new vector<Keynode>;
 
 	ifstream data_file(file_name,ios::in|ios::binary);
@@ -58,8 +60,10 @@ Index_file::Index_editorial(char* file_name, char* index_name){
 		while(!data_file.eof()){
 			Editorial editorial;
 			file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
-			Keynode keynode(editorial.getKey(),editorial.getOffset());
-			lista->push_back(keynode);
+			if(!editorial.isMarked()){
+				Keynode keynode(editorial.getId(),file.tellg());
+				lista->push_back(keynode);
+			}
 		}
 		sort();
 	}
@@ -81,9 +85,6 @@ void Index_file::add(Keynode){
 	sort();
 }
 Keynode Index_file::find(char* key){
-
-}
-void Index_file::reindex(char* file_name){
 
 }
 void Index_file::sort(){
