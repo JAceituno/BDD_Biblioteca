@@ -4,6 +4,7 @@
 class Book{
 
   public:
+  	Book();
 	Book(char* isbn,char* nombre,char* autor,char* id_editorial);
 	~Book();
 	char* getIsbn()const;
@@ -11,7 +12,7 @@ class Book{
 	char* getAutor()const;
 	char* getId_editorial()const;
 	bool isMarked();
-	void setMarked();
+	void setMarked(bool);
 	void setIsbn(char* isbn);
 	void setNombre(char* nombre);
 	void setAutor(char* autor);
@@ -21,4 +22,5 @@ class Book{
   	char* nombre;
   	char* autor;
   	char* id_editorial;
+  	bool marked;
 };

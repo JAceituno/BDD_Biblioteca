@@ -2,6 +2,7 @@
 
 class Keynode{
   public:
+  	Keynode();
 	Keynode(char* key, long int offset);
 	~Keynode();
 	char* getKey()const;

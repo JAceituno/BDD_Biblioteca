@@ -2,9 +2,11 @@
 #include <vector>
 #include <fstream>
 
+using namespace std;
+
 class Index_file{
   public:
-	Index_file();
+	Index_file(char*);
 	~Index_file();
 	void add(Keynode);
 	Keynode find(char* key);
@@ -12,5 +14,5 @@ class Index_file{
 	void Reindex_editorial(char* file_name, char* index_name);
   private:
   	vector<Keynode>* lista;	
-  	void sort(char* key);
+  	void sort();
 };

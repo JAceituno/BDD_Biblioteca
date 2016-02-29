@@ -7,11 +7,11 @@ class HeaderBook{
 	HeaderBook();
 	~HeaderBook();
 	bool isDirty();
-	void setDirty();
+	void setDirty(bool);
 	long int getOffset();
 	void setOffset(long int);
 
-  	const int SIZE_OF_RECORD = sizeof(Book);	
+  	int SIZE_OF_RECORD;	
   	int REC_COUNT;
   private:
   	bool dirty;

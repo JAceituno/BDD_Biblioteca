@@ -1,9 +1,11 @@
 #include "header_book.hpp"
+#include "book.hpp"
 
 HeaderBook::HeaderBook(){
 	this->dirty = true;
 	this->REC_COUNT = 0;
 	this->offset = -1;
+	this->SIZE_OF_RECORD = sizeof(Book);	
 }
 HeaderBook::~HeaderBook(){
 

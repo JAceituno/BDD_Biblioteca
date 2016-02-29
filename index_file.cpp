@@ -1,13 +1,14 @@
 #include "keynode.hpp"
 #include "index_file.hpp"
 #include "header_editorial.hpp"
-#include "header_Editorial.hpp"
-#include "Editorial.hpp"
+#include "header_book.hpp"
+#include "book.hpp"
 #include "editorial.hpp"
 #include <vector>
 #include <cstring>
 #include <string>
 #include <fstream>
+
 
 using namespace std;
 
@@ -28,13 +29,13 @@ void Index_file::Reindex_Book(char* file_name, char* index_name){
 
 	ifstream data_file(file_name,ios::in|ios::binary);
 	if(data_file.good()){
-		data_file.seekg(sizeof(Header_book));
+		data_file.seekg(sizeof(HeaderBook));
 
 		while(!data_file.eof()){
 			Book book;
-			file.read(reinterpret_cast<char*>(&book),sizeof(Book));
+			data_file.read(reinterpret_cast<char*>(&book),sizeof(Book));
 			if(!book.isMarked()){
-				Keynode keynode(book.getIsbn(),file.tellg());
+				Keynode keynode(book.getIsbn(),data_file.tellg());
 				lista->push_back(keynode);
 			}
 		}
@@ -51,17 +52,17 @@ void Index_file::Reindex_Book(char* file_name, char* index_name){
 	index_file.close();
 }
 void Index_file::Reindex_editorial(char* file_name, char* index_name){
-	ista = new vector<Keynode>;
+	lista = new vector<Keynode>;
 
 	ifstream data_file(file_name,ios::in|ios::binary);
 	if(data_file.good()){
-		data_file.seekg(sizeof(Header_editorial));
+		data_file.seekg(sizeof(HeaderEditorial));
 
 		while(!data_file.eof()){
 			Editorial editorial;
-			file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
+			data_file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
 			if(!editorial.isMarked()){
-				Keynode keynode(editorial.getId(),file.tellg());
+				Keynode keynode(editorial.getId(),data_file.tellg());
 				lista->push_back(keynode);
 			}
 		}
@@ -80,22 +81,22 @@ void Index_file::Reindex_editorial(char* file_name, char* index_name){
 Index_file::~Index_file(){
 	delete lista;
 }
-void Index_file::add(Keynode){
-	lista->push_back(Keynode);
+void Index_file::add(Keynode keynode){
+	lista->push_back(keynode);
 	sort();
 }
 Keynode Index_file::find(char* key){
 
 }
 void Index_file::sort(){
-	unsigned long long int temporal[lista.size()];
+	unsigned long long int temporal[lista->size()];
 
 	for (int i = 0; i < lista->size(); ++i){
 		temporal[i] = 0;
 	}
 
 	for (int i = 0; i < lista->size(); ++i){
-		char* temp[14];
+		char temp[14];
 		temp[0] = lista->at(i).getKey()[0];
 		temp[1] = lista->at(i).getKey()[1];
 		temp[2] = lista->at(i).getKey()[2];
@@ -119,6 +120,7 @@ void Index_file::sort(){
 	int pos_min;
 
 	unsigned long long int temporary;
+	Keynode temporary2;
 
 	for (int i=0; i < lista->size()-1; i++){
 	    pos_min = i;
@@ -131,12 +133,11 @@ void Index_file::sort(){
 		
         if (pos_min != i){
             temporary = temporal[i];
-            char* temporary2;
-            strcpy(temporary2,lista->at(i));
+            temporary2 = lista->at(i);
             temporal[i] = temporal[pos_min];
-            strcpy(lista->at(i),lista->at(pos_min));
+            lista->at(i) = lista->at(pos_min);
             temporal[pos_min] = temporary;
-            strcpy(lista->at(pos_min),temporary2);
+            lista->at(pos_min) = temporary2;
         }
 	}
 }

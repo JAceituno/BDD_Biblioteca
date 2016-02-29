@@ -7,6 +7,9 @@ Keynode::Keynode(char* key, long int offset){
 	setKey(key);
 	this->offset = offset;
 }
+Keynode::Keynode(){
+	this->key = new char[18];
+}
 Keynode::~Keynode(){
 	delete[] this->key;
 }
@@ -20,6 +23,6 @@ void Keynode::setOffset(long int offset){
 	this->offset = offset;
 }
 void Keynode::setKey(char* key){
-	char* key = new char[18];
+	this->key = new char[18];
 	strcpy(this->key, key);
 }

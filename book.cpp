@@ -9,11 +9,17 @@ Book::Book(char* isbn,char* nombre,char* autor,char* id_editorial){
 	setAutor(autor);
 	setId_editorial(id_editorial);
 }
+Book::Book(){
+	this->isbn = new char[18];
+	this->nombre = new char[30];
+	this->autor = new char[30];
+	this->id_editorial = new char[18];
+}
 Book::~Book(){
 	delete[] this->isbn;
 	delete[] this->nombre;
 	delete[] this->autor;
-	delete[] this->id_editorial:
+	delete[] this->id_editorial;
 }
 char* Book::getIsbn()const{
 	return isbn;

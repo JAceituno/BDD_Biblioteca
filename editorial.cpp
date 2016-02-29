@@ -8,6 +8,11 @@ Editorial::Editorial(char* id, char* nombre, char* direccion){
 	setNombre(nombre);
 	setDireccion(direccion);
 }
+Editorial::Editorial(){
+	this->id = new char[18];
+	this->nombre = new char[30];
+	this->direccion = new char[30];
+}
 Editorial::~Editorial(){
 	delete[] this->id;
 	delete[] this->nombre;
@@ -22,15 +27,15 @@ char* Editorial::getNombre()const{
 char* Editorial::getDireccion()const{
 	return direccion;
 }
-void Editorial::setId(){
+void Editorial::setId(char* id){
 	this->id = new char[18];
 	strcpy(this->id,id);
 }
-void Editorial::setNombre(){
+void Editorial::setNombre(char* nombre){
 	this->nombre = new char[30];
 	strcpy(this->nombre,nombre);
 }
-void Editorial::setDireccion(){
+void Editorial::setDireccion(char* direccion){
 	this->direccion = new char[30];
 	strcpy(this->direccion,direccion);
 }
