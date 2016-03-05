@@ -64,12 +64,12 @@ int main(int argc, char const *argv[]){
 				oldfile.open("book.dat",ios::binary|ios::in);
 				newfile.open("newbook.dat",ios::binary|ios::out);
 				HeaderBook* hbook;
-				oldfile.read((char*)hbook,sizeof(HeaderBook));
+				oldfile.read(reinterpret_cast<char*>(hbook),sizeof(HeaderBook));
 				newfile.write((char*)hbook,sizeof(HeaderBook));
 				vector<Book*> libros;
 				while(!oldfile.eof()){
 					Book* temp_book;
-					oldfile.read((char*)temp_book,sizeof(Book));
+					oldfile.read(reinterpret_cast<char*>(temp_book),sizeof(Book));
 					if(!temp_book->isMarked()){
 						libros.push_back(temp_book);
 					}
@@ -87,12 +87,12 @@ int main(int argc, char const *argv[]){
 				oldfile.open("editorial.dat",ios::binary|ios::in);
 				newfile.open("neweditorial.dat",ios::binary|ios::out);
 				HeaderEditorial* heditorial;
-				oldfile.read((char*)heditorial,sizeof(HeaderEditorial));
+				oldfile.read(reinterpret_cast<char*>(heditorial),sizeof(HeaderEditorial));
 				newfile.write((char*)heditorial,sizeof(HeaderEditorial));
 				vector<Editorial*> editoriales;
 				while(!oldfile.eof()){
 					Editorial* temp_editorial;
-					oldfile.read((char*)temp_editorial,sizeof(Editorial));
+					oldfile.read(reinterpret_cast<char*>(temp_editorial),sizeof(Editorial));
 					if(!temp_editorial->isMarked()){
 						editoriales.push_back(temp_editorial);
 					}
