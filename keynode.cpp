@@ -1,5 +1,6 @@
 #include "keynode.hpp"
 #include <cstring>
+#include <string>
 
 using namespace std;
 
@@ -8,13 +9,12 @@ Keynode::Keynode(char* key, long int offset){
 	this->offset = offset;
 }
 Keynode::Keynode(){
-	this->key = new char[18];
 }
 Keynode::~Keynode(){
-	delete[] this->key;
 }
-char* Keynode::getKey()const{
-	return key;
+string Keynode::getKey()const{
+	string retval(key);
+	return retval;
 }
 long int Keynode::getOffset()const{
 	return offset;
@@ -23,6 +23,5 @@ void Keynode::setOffset(long int offset){
 	this->offset = offset;
 }
 void Keynode::setKey(char* key){
-	this->key = new char[18];
 	strcpy(this->key, key);
 }

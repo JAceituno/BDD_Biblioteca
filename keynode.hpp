@@ -1,15 +1,18 @@
 #pragma once
+#include <string>
+
+using namespace std;
 
 class Keynode{
   public:
   	Keynode();
 	Keynode(char* key, long int offset);
 	~Keynode();
-	char* getKey()const;
+	string getKey()const;
 	long int getOffset()const;
 	void setOffset(long int);
 	void setKey(char*);
   private:
-  	char* key;
+  	char key[18];
   	long int offset;
 };

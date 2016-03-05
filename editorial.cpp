@@ -9,39 +9,44 @@ Editorial::Editorial(char* id, char* nombre, char* direccion){
 	setDireccion(direccion);
 }
 Editorial::Editorial(){
-	this->id = new char[18];
-	this->nombre = new char[30];
-	this->direccion = new char[30];
+	
 }
 Editorial::~Editorial(){
-	delete[] this->id;
-	delete[] this->nombre;
-	delete[] this->direccion;
+	
 }
-char* Editorial::getId()const{
-	return id;
+string Editorial::getId()const{
+	string retvalue(id);
+	return retvalue;
 }
-char* Editorial::getNombre()const{
-	return nombre;
+string Editorial::getNombre()const{
+	string retvalue(nombre);
+	return retvalue;
 }
-char* Editorial::getDireccion()const{
-	return direccion;
+string Editorial::getDireccion()const{
+	string retvalue(direccion);
+	return retvalue;
 }
 void Editorial::setId(char* id){
-	this->id = new char[18];
 	strcpy(this->id,id);
 }
 void Editorial::setNombre(char* nombre){
-	this->nombre = new char[30];
 	strcpy(this->nombre,nombre);
 }
 void Editorial::setDireccion(char* direccion){
-	this->direccion = new char[30];
 	strcpy(this->direccion,direccion);
 }
 bool Editorial::isMarked(){
 	return marked;
 }
-void Editorial::setMarked(bool marked){
+void Editorial::setMarked(bool marked){	
 	this->marked = marked;
+}
+int Editorial::getMark(){
+	if(marked)
+		return mark;
+}
+void Editorial::setMark(long int mark){
+	if(marked){
+		this->mark = mark;
+	}
 }

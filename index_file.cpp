@@ -35,7 +35,7 @@ void Index_file::Reindex_Book(char* file_name, char* index_name){
 			Book book;
 			data_file.read(reinterpret_cast<char*>(&book),sizeof(Book));
 			if(!book.isMarked()){
-				Keynode keynode(book.getIsbn(),data_file.tellg());
+				Keynode keynode(const_cast<char *>(book.getIsbn().c_str()),data_file.tellg());
 				lista->push_back(keynode);
 			}
 		}
@@ -62,7 +62,7 @@ void Index_file::Reindex_editorial(char* file_name, char* index_name){
 			Editorial editorial;
 			data_file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
 			if(!editorial.isMarked()){
-				Keynode keynode(editorial.getId(),data_file.tellg());
+				Keynode keynode(const_cast<char *>(editorial.getId().c_str()),data_file.tellg());
 				lista->push_back(keynode);
 			}
 		}
@@ -86,6 +86,35 @@ void Index_file::add(Keynode keynode){
 	sort();
 }
 Keynode Index_file::find(char* key){
+	/////////////////////////////////////FALTA////////////////////////////////////////////////////////77
+	unsigned long long int temporal[lista->size()];
+
+	for (int i = 0; i < lista->size(); ++i){
+		temporal[i] = 0;
+	}
+
+	for (int i = 0; i < lista->size(); ++i){
+		char temp[14];
+		temp[0] = const_cast<char*>(lista->at(i).getKey().c_str())[0];
+		temp[1] = const_cast<char*>(lista->at(i).getKey().c_str())[1];
+		temp[2] = const_cast<char*>(lista->at(i).getKey().c_str())[2];
+		temp[3] = const_cast<char*>(lista->at(i).getKey().c_str())[4];
+		temp[4] = const_cast<char*>(lista->at(i).getKey().c_str())[6];
+		temp[5] = const_cast<char*>(lista->at(i).getKey().c_str())[7];
+		temp[6] = const_cast<char*>(lista->at(i).getKey().c_str())[9];
+		temp[7] = const_cast<char*>(lista->at(i).getKey().c_str())[10];
+		temp[8] = const_cast<char*>(lista->at(i).getKey().c_str())[11];
+		temp[9] = const_cast<char*>(lista->at(i).getKey().c_str())[12];
+		temp[10] = const_cast<char*>(lista->at(i).getKey().c_str())[13];
+		temp[11] = const_cast<char*>(lista->at(i).getKey().c_str())[14];
+		temp[12] = const_cast<char*>(lista->at(i).getKey().c_str())[16];
+		temp[13] = const_cast<char*>(lista->at(i).getKey().c_str())[17];
+
+		string next_temp(temp);
+
+		temporal[i] = stoull(next_temp);
+	}
+	/////////////////////////////////////NO TERMINADO///////////////////////////////////////////////////7
 
 }
 void Index_file::sort(){
@@ -97,20 +126,20 @@ void Index_file::sort(){
 
 	for (int i = 0; i < lista->size(); ++i){
 		char temp[14];
-		temp[0] = lista->at(i).getKey()[0];
-		temp[1] = lista->at(i).getKey()[1];
-		temp[2] = lista->at(i).getKey()[2];
-		temp[3] = lista->at(i).getKey()[4];
-		temp[4] = lista->at(i).getKey()[6];
-		temp[5] = lista->at(i).getKey()[7];
-		temp[6] = lista->at(i).getKey()[9];
-		temp[7] = lista->at(i).getKey()[10];
-		temp[8] = lista->at(i).getKey()[11];
-		temp[9] = lista->at(i).getKey()[12];
-		temp[10] = lista->at(i).getKey()[13];
-		temp[11] = lista->at(i).getKey()[14];
-		temp[12] = lista->at(i).getKey()[16];
-		temp[13] = lista->at(i).getKey()[17];
+		temp[0] = const_cast<char*>(lista->at(i).getKey().c_str())[0];
+		temp[1] = const_cast<char*>(lista->at(i).getKey().c_str())[1];
+		temp[2] = const_cast<char*>(lista->at(i).getKey().c_str())[2];
+		temp[3] = const_cast<char*>(lista->at(i).getKey().c_str())[4];
+		temp[4] = const_cast<char*>(lista->at(i).getKey().c_str())[6];
+		temp[5] = const_cast<char*>(lista->at(i).getKey().c_str())[7];
+		temp[6] = const_cast<char*>(lista->at(i).getKey().c_str())[9];
+		temp[7] = const_cast<char*>(lista->at(i).getKey().c_str())[10];
+		temp[8] = const_cast<char*>(lista->at(i).getKey().c_str())[11];
+		temp[9] = const_cast<char*>(lista->at(i).getKey().c_str())[12];
+		temp[10] = const_cast<char*>(lista->at(i).getKey().c_str())[13];
+		temp[11] = const_cast<char*>(lista->at(i).getKey().c_str())[14];
+		temp[12] = const_cast<char*>(lista->at(i).getKey().c_str())[16];
+		temp[13] = const_cast<char*>(lista->at(i).getKey().c_str())[17];
 
 		string next_temp(temp);
 

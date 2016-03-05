@@ -1,5 +1,6 @@
 #include "book.hpp"
 #include <cstring>
+#include <string>
 
 using namespace std;
 
@@ -10,43 +11,37 @@ Book::Book(char* isbn,char* nombre,char* autor,char* id_editorial){
 	setId_editorial(id_editorial);
 }
 Book::Book(){
-	this->isbn = new char[18];
-	this->nombre = new char[30];
-	this->autor = new char[30];
-	this->id_editorial = new char[18];
+	
 }
 Book::~Book(){
-	delete[] this->isbn;
-	delete[] this->nombre;
-	delete[] this->autor;
-	delete[] this->id_editorial;
+	
 }
-char* Book::getIsbn()const{
-	return isbn;
+string Book::getIsbn()const{
+	string retval(isbn);
+	return retval;
 }
-char* Book::getNombre()const{
-	return nombre;
+string Book::getNombre()const{
+	string retval(nombre);
+	return retval;
 }
-char* Book::getAutor()const{
-	return autor;
+string Book::getAutor()const{
+	string retval(autor);
+	return retval;
 }
-char* Book::getId_editorial()const{
-	return id_editorial;
+string Book::getId_editorial()const{
+	string retval(id_editorial);
+	return retval;
 }
 void Book::setIsbn(char* isbn){
-	this->isbn = new char[18];
 	strcpy(this->isbn,isbn);
 }
 void Book::setNombre(char* nombre){
-	this->nombre = new char[30];
 	strcpy(this->nombre,nombre);
 }
 void Book::setAutor(char* autor){
-	this->autor = new char[30];
 	strcpy(this->autor,autor);
 }
 void Book::setId_editorial(char* id_editorial){
-	this->id_editorial = new char[18];
 	strcpy(this->id_editorial,id_editorial);
 }
 bool Book::isMarked(){
@@ -54,4 +49,13 @@ bool Book::isMarked(){
 }
 void Book::setMarked(bool marked){
 	this->marked = marked;
+}
+int Book::getMark(){
+	if(marked)
+		return mark;
+}
+void Book::setMark(long int mark){
+	if(marked){
+		this->mark = mark;
+	}
 }
