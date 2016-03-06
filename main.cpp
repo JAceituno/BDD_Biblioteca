@@ -13,9 +13,13 @@ using namespace std;
 
 int main_menu();
 int other_menu();
+void armar_availList(&vector<long int> al_libros, &vector<long int> al_edit);
 
 int main(int argc, char const *argv[]){
 	int selec;
+	vector<long int> al_libros;
+	vector<long int> al_edit;
+	armar_availList(al_libros, al_edit);
 	while(selec = main_menu()){
 		if(selec == 1){
 			if(!other_menu()){
@@ -144,4 +148,7 @@ int other_menu(){//método de io
 		cin >> ans;
 	}
 	return ans-1;
+}
+void armar_availList(&vector<long int> al_libros, &vector<long int> al_edit){
+	
 }

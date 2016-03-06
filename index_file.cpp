@@ -13,9 +13,19 @@
 using namespace std;
 
 Index_file::Index_file(char* file_name){
+	string name(file_name);
 	lista = new vector<Keynode>;
 
 	ifstream file(file_name,ios::in|ios::binary);
+	if(file.fail()){
+		file.close();
+		if(name.compare("book.dat")){
+			Reindex_Book(file_name,"bindex.dat");
+		}
+		if(name.compare("editorial.dat")){
+			Reindex_Editorial(file_name,"eindex.dat");
+		}
+	}
 	if(file.good()){
 		while(!file.eof()){
 			Keynode keynode;
