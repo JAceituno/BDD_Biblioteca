@@ -7,6 +7,8 @@ Editorial::Editorial(char* id, char* nombre, char* direccion){
 	setId(id);
 	setNombre(nombre);
 	setDireccion(direccion);
+	marked = false;
+	mark = -1;
 }
 Editorial::Editorial(){
 	

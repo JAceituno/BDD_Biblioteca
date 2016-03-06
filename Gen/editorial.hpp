@@ -20,8 +20,8 @@ class Editorial{
 	void setDireccion(char*);
   private:
   	char id[18];
-  	char nombre[30];
-  	char direccion[30];	
+  	char nombre[50];
+  	char direccion[50];	
 	bool marked;
 	long int mark;
 };

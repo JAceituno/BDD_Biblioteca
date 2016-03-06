@@ -24,8 +24,8 @@ class Book{
 	void setId_editorial(char* id_editorial);
   private:
   	char isbn[18];
-  	char nombre[30];
-  	char autor[30];
+  	char nombre[50];
+  	char autor[50];
   	char id_editorial[18];
   	bool marked;
   	long int mark;

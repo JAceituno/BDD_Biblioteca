@@ -46,7 +46,7 @@ void Index_file::Reindex_Book(char* file_name, char* index_name){
 	ofstream index_file(index_name,ios::out|ios::binary);
 	for (int i = 0; i < lista->size(); ++i)	{
 		Keynode* to_add = &lista->at(i);
-		index_file.write((char*)&to_add,sizeof(Keynode));
+		index_file.write((char*)to_add,sizeof(Keynode));
 	}
 	index_file.flush();
 	index_file.close();

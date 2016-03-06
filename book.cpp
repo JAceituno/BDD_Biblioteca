@@ -9,6 +9,8 @@ Book::Book(char* isbn,char* nombre,char* autor,char* id_editorial){
 	setNombre(nombre);
 	setAutor(autor);
 	setId_editorial(id_editorial);
+	marked = false;
+	mark = -1;
 }
 Book::Book(){
 	
