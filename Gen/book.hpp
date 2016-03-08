@@ -16,7 +16,7 @@ class Book{
 	string getId_editorial()const;
 	bool isMarked();
 	void setMarked(bool);
-	int getMark();
+	long int getMark();
 	void setMark(long int);
 	void setIsbn(char* isbn);
 	void setNombre(char* nombre);

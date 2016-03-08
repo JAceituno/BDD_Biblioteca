@@ -98,9 +98,11 @@ void Index_file::add(Keynode keynode){
 }
 long int Index_file::find(const char* key){
 	string key_str(key);
+	cout << key_str << endl;
+	cout << lista->at(0).getKey() << endl;
 	for (int i = 0; i < lista->size(); ++i)	{
 		string other_str(lista->at(i).getKey());
-		if(key_str.compare(other_str) == 0){
+		if(key_str == other_str){
 			return lista->at(i).getOffset();
 		}
 	}
@@ -157,5 +159,15 @@ void Index_file::sort(){
             temporal[pos_min] = temporary;
             lista->at(pos_min) = temporary2;
         }
+	}
+}
+void Index_file::remove(const char* key){
+	string key_str(key);
+	for (int i = 0; i < lista->size(); ++i)	{
+		string other_str(lista->at(i).getKey());
+		if(key_str.compare(other_str) == 0){
+			lista->erase(lista->begin()+i);
+			break;
+		}
 	}
 }

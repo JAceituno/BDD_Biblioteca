@@ -116,6 +116,12 @@ int main(int argc, char const *argv[]){
 				if(al_libros.size() > 0){
 					ref = al_libros.back();
 					al_libros.pop_back();
+					if(al_libros.size() > 0){
+						hb.setOffset(al_libros.back());
+					}
+					else{
+						hb.setOffset(-1);
+					}
 
 					out_file.seekp(ref,ios::beg);
 				}
@@ -177,6 +183,13 @@ int main(int argc, char const *argv[]){
 				if(al_edit.size() > 0){
 					ref = al_edit.back();
 					al_edit.pop_back();
+
+					if(al_edit.size() > 0){
+						he.setOffset(al_edit.back());
+					}
+					else{
+						he.setOffset(-1);
+					}
 
 					out_file.seekp(ref,ios::beg);
 				}
@@ -290,7 +303,7 @@ int main(int argc, char const *argv[]){
 
 
 				if(ref != -1){
-					ifstream in_file("book.dat",ios::in|ios::binary);
+					ifstream in_file("editorial.dat",ios::in|ios::binary);
 					in_file.seekg(ref,ios::beg);
 					in_file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
 
@@ -304,10 +317,10 @@ int main(int argc, char const *argv[]){
 		}	//Leer
 		else if(selec == 3){
 			if(!other_menu()){
-
+				cout << "No disponible en la version Alpha, still in development" << endl;
 			}
 			else{
-				
+				cout << "No disponible en la version Alpha, still in development" << endl;
 			}
 		}
 		else if(selec == 4){
@@ -372,6 +385,8 @@ int main(int argc, char const *argv[]){
 				out_file.flush();
 				out_file.close();
 
+				if_books.remove(isbn);
+
 			} 	//Leer libro
 			else{
 				char input[14];
@@ -432,6 +447,8 @@ int main(int argc, char const *argv[]){
 
 				out_file.flush();
 				out_file.close();
+
+				if_editorials.remove(id_editorial);
 			}
 		}
 		else if(selec == 5){
@@ -563,7 +580,7 @@ void armar_availList(vector<long int>& al_libros, vector<long int>& al_edit, Hea
 		Book temp_libro;
 		archivo_libro.seekg(al_libros.back(), ios::beg);
 		archivo_libro.read(reinterpret_cast<char*>(&temp_libro),sizeof(Book));
-		if(temp_libro.getMark() != 1){
+		if(temp_libro.getMark() != -1){
 			al_libros.push_back(temp_libro.getMark());
 		}
 		else{
@@ -579,7 +596,7 @@ void armar_availList(vector<long int>& al_libros, vector<long int>& al_edit, Hea
 		Editorial temp_edito;
 		archivo_edito.seekg(al_edit.back(), ios::beg);
 		archivo_edito.read(reinterpret_cast<char*>(&temp_edito),sizeof(Editorial));
-		if(temp_edito.getMark() != 1){
+		if(temp_edito.getMark() != -1){
 			al_edit.push_back(temp_edito.getMark());
 		}
 		else{
