@@ -317,11 +317,239 @@ int main(int argc, char const *argv[]){
 		}	//Leer
 		else if(selec == 3){
 			if(!other_menu()){
-				cout << "No disponible en la version Alpha, still in development" << endl;
+				char input[14];
+				char isbn[18];
+
+				bool valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ISBN: ";
+			  		cin.getline(input,14,'\n');
+			  		if(strlen(input) == 13)
+			  			valid = true;
+			  	}
+			  	isbn[0] = input[0];
+				isbn[1] = input[1];
+				isbn[2] = input[2];
+				isbn[3] = '-';
+				isbn[4] = input[3];
+				isbn[5] = '-';
+				isbn[6] = input[4];
+				isbn[7] = input[5];
+				isbn[8] = '-';
+				isbn[9] = input[6];
+				isbn[10] = input[7];
+				isbn[11] = input[8];
+				isbn[12] = input[9];
+				isbn[13] = input[10];
+				isbn[14] = input[11];
+				isbn[15] = '-';
+				isbn[16] = input[12];
+				isbn[17] = '\0';
+
+				cout << isbn << endl;
+
+				long int ref = if_books.find(isbn);
+				cout << ref << endl;
+
+				Book libro;
+
+
+				if(ref != -1){
+					ifstream in_file("book.dat",ios::in|ios::binary);
+					in_file.seekg(ref,ios::beg);
+					in_file.read(reinterpret_cast<char*>(&libro),sizeof(Book));
+
+					in_file.close();
+				}
+
+				cout << "ISBN: " << libro.getIsbn() << endl;
+				cout << "Nombre: " << libro.getNombre() << endl;
+				cout << "Autor: " << libro.getAutor() << endl;
+				cout << "ID Editorial: " << libro.getId_editorial() << endl;
+
+				if_books.remove(isbn);
+
+
+				//char input[14];
+				//char isbn[18];
+				char nombre[50];
+			  	char autor[50];
+			  	char input_edit[14];
+			  	char id_editorial[18];
+
+			  	valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ISBN: ";
+			  		cin.getline(input,14,'\n');
+			  		cout << strlen(input) << endl;
+			  		if(strlen(input) == 13)
+			  			valid = true;
+			  	}
+			  	cout << "Ingrese Nombre: ";
+		  		cin.getline(nombre,50,'\n');
+		  		cout << "Ingrese Autor: ";
+		  		cin.getline(autor,50,'\n');
+			  	valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ID Editorial: ";
+			  		cin.getline(input_edit,14,'\n');
+			  		if(strlen(input_edit) == 13)
+			  			valid = true;
+			  	}
+			  	isbn[0] = input[0];
+				isbn[1] = input[1];
+				isbn[2] = input[2];
+				isbn[3] = '-';
+				isbn[4] = input[3];
+				isbn[5] = '-';
+				isbn[6] = input[4];
+				isbn[7] = input[5];
+				isbn[8] = '-';
+				isbn[9] = input[6];
+				isbn[10] = input[7];
+				isbn[11] = input[8];
+				isbn[12] = input[9];
+				isbn[13] = input[10];
+				isbn[14] = input[11];
+				isbn[15] = '-';
+				isbn[16] = input[12];
+				isbn[17] = '\0';
+
+				id_editorial[0] = input_edit[0];
+				id_editorial[1] = input_edit[1];
+				id_editorial[2] = input_edit[2];
+				id_editorial[3] = '-';
+				id_editorial[4] = input_edit[3];
+				id_editorial[5] = '-';
+				id_editorial[6] = input_edit[4];
+				id_editorial[7] = input_edit[5];
+				id_editorial[8] = '-';
+				id_editorial[9] = input_edit[6];
+				id_editorial[10] = input_edit[7];
+				id_editorial[11] = input_edit[8];
+				id_editorial[12] = input_edit[9];
+				id_editorial[13] = input_edit[10];
+				id_editorial[14] = input_edit[11];
+				id_editorial[15] = '-';
+				id_editorial[16] = input_edit[12];
+				id_editorial[17] = '\0';
+
+				Book libro2(isbn,nombre,autor,id_editorial);
+				fstream out_file("book.dat",ios::in|ios::out|ios::binary);
+
+				out_file.seekp(ref,ios::beg);
+
+				hb.setDirty(true);
+				Keynode node(isbn,ref);
+				if_books.add(node);
+				out_file.write((char*)&libro2,sizeof(Book));    	//Escribir Libro
+
+				out_file.flush();
+
+				out_file.close();
 			}
 			else{
-				cout << "No disponible en la version Alpha, still in development" << endl;
-			}
+				char input[14];
+				char id_editorial[18];
+
+				bool valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ID Editorial: ";
+			  		cin.getline(input,14,'\n');
+			  		if(strlen(input) == 13)
+			  			valid = true;
+			  	}
+			  	id_editorial[0] = input[0];
+				id_editorial[1] = input[1];
+				id_editorial[2] = input[2];
+				id_editorial[3] = '-';
+				id_editorial[4] = input[3];
+				id_editorial[5] = '-';
+				id_editorial[6] = input[4];
+				id_editorial[7] = input[5];
+				id_editorial[8] = '-';
+				id_editorial[9] = input[6];
+				id_editorial[10] = input[7];
+				id_editorial[11] = input[8];
+				id_editorial[12] = input[9];
+				id_editorial[13] = input[10];
+				id_editorial[14] = input[11];
+				id_editorial[15] = '-';
+				id_editorial[16] = input[12];
+				id_editorial[17] = '\0';
+
+				cout << id_editorial << endl;
+
+				long int ref = if_editorials.find(id_editorial);
+				cout << ref << endl;
+
+				Editorial editorial;
+
+
+				if(ref != -1){
+					ifstream in_file("editorial.dat",ios::in|ios::binary);
+					in_file.seekg(ref,ios::beg);
+					in_file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
+
+					in_file.close();
+				}
+
+				cout << "ID Editorial: " << editorial.getId() << endl;
+				cout << "Nombre: " << editorial.getNombre() << endl;
+				cout << "Direccion: " << editorial.getDireccion() << endl;
+
+				if_editorials.remove(id_editorial);
+
+				char nombre[50];
+			  	char direccion[50];
+			  	char input_edit[14];
+			  	//char id_editorial[18];
+
+			  	cout << "Ingrese Nombre: ";
+		  		cin.getline(nombre,50,'\n');
+		  		cout << "Ingrese Direccion: ";
+		  		cin.getline(direccion,50,'\n');
+			  	valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ID Editorial: ";
+			  		cin.getline(input_edit,14,'\n');
+			  		if(strlen(input_edit) == 13)
+			  			valid = true;
+			  	}
+
+				id_editorial[0] = input_edit[0];
+				id_editorial[1] = input_edit[1];
+				id_editorial[2] = input_edit[2];
+				id_editorial[3] = '-';
+				id_editorial[4] = input_edit[3];
+				id_editorial[5] = '-';
+				id_editorial[6] = input_edit[4];
+				id_editorial[7] = input_edit[5];
+				id_editorial[8] = '-';
+				id_editorial[9] = input_edit[6];
+				id_editorial[10] = input_edit[7];
+				id_editorial[11] = input_edit[8];
+				id_editorial[12] = input_edit[9];
+				id_editorial[13] = input_edit[10];
+				id_editorial[14] = input_edit[11];
+				id_editorial[15] = '-';
+				id_editorial[16] = input_edit[12];
+				id_editorial[17] = '\0';
+
+				Editorial edit(id_editorial,nombre,direccion);
+				fstream out_file("editorial.dat",ios::in|ios::out|ios::binary);
+
+				out_file.seekp(ref,ios::beg);
+
+				he.setDirty(true);
+				Keynode node(id_editorial,ref);
+				if_editorials.add(node);
+				out_file.write((char*)&edit,sizeof(Editorial));					//Escribir Editorial  
+
+				out_file.flush();	
+
+				out_file.close();
+			}	
 		}
 		else if(selec == 4){
 			if(!other_menu()){
