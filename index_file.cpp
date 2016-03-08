@@ -12,18 +12,18 @@
 
 using namespace std;
 
-Index_file::Index_file(char* file_name){
+Index_file::Index_file(const char* file_name){
 	string name(file_name);
 	lista = new vector<Keynode>;
 
 	ifstream file(file_name,ios::in|ios::binary);
 	if(file.fail()){
 		file.close();
-		if(name.compare("book.dat")){
-			Reindex_Book(file_name,"bindex.dat");
+		if(name.compare("bindex.dat")){
+			Reindex_Book("book.dat",file_name);
 		}
-		if(name.compare("editorial.dat")){
-			Reindex_Editorial(file_name,"eindex.dat");
+		if(name.compare("eindex.dat")){
+			Reindex_Editorial("editorial.dat",file_name);
 		}
 	}
 	if(file.good()){
@@ -34,7 +34,7 @@ Index_file::Index_file(char* file_name){
 		}
 	}
 }
-void Index_file::Reindex_Book(char* file_name, char* index_name){
+void Index_file::Reindex_Book(const char* file_name, const char* index_name){
 	lista = new vector<Keynode>;
 
 	ifstream data_file(file_name,ios::in|ios::binary);
@@ -55,13 +55,13 @@ void Index_file::Reindex_Book(char* file_name, char* index_name){
 
 	ofstream index_file(index_name,ios::out|ios::binary);
 	for (int i = 0; i < lista->size(); ++i)	{
-		Keynode* to_add = &lista->at(i);
-		index_file.write((char*)to_add,sizeof(Keynode));
+		Keynode to_add = lista->at(i);
+		index_file.write((char*)&to_add,sizeof(Keynode));
 	}
 	index_file.flush();
 	index_file.close();
 }
-void Index_file::Reindex_editorial(char* file_name, char* index_name){
+void Index_file::Reindex_Editorial(const char* file_name, const char* index_name){
 	lista = new vector<Keynode>;
 
 	ifstream data_file(file_name,ios::in|ios::binary);
@@ -82,7 +82,7 @@ void Index_file::Reindex_editorial(char* file_name, char* index_name){
 
 	ofstream index_file(index_name,ios::out|ios::binary);
 	for (int i = 0; i < lista->size(); ++i)	{
-		Keynode* to_add = &lista->at(i);
+		Keynode to_add = lista->at(i);
 		index_file.write((char*)&to_add,sizeof(Keynode));
 	}
 	index_file.flush();
@@ -96,7 +96,7 @@ void Index_file::add(Keynode keynode){
 	sort();
 }
 Keynode Index_file::find(char* key){
-	/////////////////////////////////////FALTA////////////////////////////////////////////////////////77
+	/////////////////////////////////////FALTA//////////////////////////////////////////////////////////
 	unsigned long long int temporal[lista->size()];
 
 	for (int i = 0; i < lista->size(); ++i){
