@@ -12,7 +12,7 @@ class Editorial{
 	string getNombre()const;
 	string getDireccion()const;
 	bool isMarked();
-	int getMark();
+	long int getMark();
 	void setMark(long int);
 	void setMarked(bool);
 	void setId(char*);

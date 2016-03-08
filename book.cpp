@@ -52,7 +52,7 @@ bool Book::isMarked(){
 void Book::setMarked(bool marked){
 	this->marked = marked;
 }
-int Book::getMark(){
+long int Book::getMark(){
 	if(marked)
 		return mark;
 }

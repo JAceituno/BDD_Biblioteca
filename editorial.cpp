@@ -43,7 +43,7 @@ bool Editorial::isMarked(){
 void Editorial::setMarked(bool marked){	
 	this->marked = marked;
 }
-int Editorial::getMark(){
+long int Editorial::getMark(){
 	if(marked)
 		return mark;
 }

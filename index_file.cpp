@@ -8,6 +8,7 @@
 #include <cstring>
 #include <string>
 #include <fstream>
+#include <iostream>
 
 
 using namespace std;
@@ -19,10 +20,10 @@ Index_file::Index_file(const char* file_name){
 	ifstream file(file_name,ios::in|ios::binary);
 	if(file.fail()){
 		file.close();
-		if(name.compare("bindex.dat")){
+		if(name.compare("bindex.dat") == 0){
 			Reindex_Book("book.dat",file_name);
 		}
-		if(name.compare("eindex.dat")){
+		if(name.compare("eindex.dat") == 0){
 			Reindex_Editorial("editorial.dat",file_name);
 		}
 	}
@@ -95,37 +96,15 @@ void Index_file::add(Keynode keynode){
 	lista->push_back(keynode);
 	sort();
 }
-Keynode Index_file::find(char* key){
-	/////////////////////////////////////FALTA//////////////////////////////////////////////////////////
-	unsigned long long int temporal[lista->size()];
-
-	for (int i = 0; i < lista->size(); ++i){
-		temporal[i] = 0;
+long int Index_file::find(const char* key){
+	string key_str(key);
+	for (int i = 0; i < lista->size(); ++i)	{
+		string other_str(lista->at(i).getKey());
+		if(key_str.compare(other_str) == 0){
+			return lista->at(i).getOffset();
+		}
 	}
-
-	for (int i = 0; i < lista->size(); ++i){
-		char temp[14];
-		temp[0] = const_cast<char*>(lista->at(i).getKey().c_str())[0];
-		temp[1] = const_cast<char*>(lista->at(i).getKey().c_str())[1];
-		temp[2] = const_cast<char*>(lista->at(i).getKey().c_str())[2];
-		temp[3] = const_cast<char*>(lista->at(i).getKey().c_str())[4];
-		temp[4] = const_cast<char*>(lista->at(i).getKey().c_str())[6];
-		temp[5] = const_cast<char*>(lista->at(i).getKey().c_str())[7];
-		temp[6] = const_cast<char*>(lista->at(i).getKey().c_str())[9];
-		temp[7] = const_cast<char*>(lista->at(i).getKey().c_str())[10];
-		temp[8] = const_cast<char*>(lista->at(i).getKey().c_str())[11];
-		temp[9] = const_cast<char*>(lista->at(i).getKey().c_str())[12];
-		temp[10] = const_cast<char*>(lista->at(i).getKey().c_str())[13];
-		temp[11] = const_cast<char*>(lista->at(i).getKey().c_str())[14];
-		temp[12] = const_cast<char*>(lista->at(i).getKey().c_str())[16];
-		temp[13] = const_cast<char*>(lista->at(i).getKey().c_str())[17];
-
-		string next_temp(temp);
-
-		temporal[i] = stoull(next_temp);
-	}
-	/////////////////////////////////////NO TERMINADO///////////////////////////////////////////////////7
-
+	return -1;
 }
 void Index_file::sort(){
 	unsigned long long int temporal[lista->size()];
