@@ -29,6 +29,17 @@ int main(int argc, char const *argv[]){
 	archivo_edito.read(reinterpret_cast<char*>(&he),sizeof(HeaderEditorial));
 	archivo_libro.close();
 	archivo_edito.close();
+
+	if(hb.isDirty()){
+		if_books.Reindex_Book("book.dat","bindex.dat");
+	}
+	if(he.isDirty()){
+		if_editorials.Reindex_Editorial("editorial.dat","eindex.dat");
+	}
+
+	hb.setDirty(false);
+	he.setDirty(false);
+
 	cout << "hago stp" << endl;
 	armar_availList(al_libros, al_edit, hb, he);
 	while(selec = main_menu()){
@@ -117,6 +128,8 @@ int main(int argc, char const *argv[]){
 				if_books.add(node);
 				out_file.write((char*)&libro,sizeof(Book));    	//Escribir Libro
 
+				out_file.flush();
+
 				out_file.close();
 			}
 			else{
@@ -171,10 +184,12 @@ int main(int argc, char const *argv[]){
 					out_file.seekp(0,ios::end);
 					ref = out_file.tellp();
 				}
-				hb.setDirty(true);
+				he.setDirty(true);
 				Keynode node(id_editorial,ref);
 				if_editorials.add(node);
-				out_file.write((char*)&edit,sizeof(Editorial));					//Escribir Editorial  	
+				out_file.write((char*)&edit,sizeof(Editorial));					//Escribir Editorial  
+
+				out_file.flush();	
 
 				out_file.close();				
 
@@ -237,7 +252,54 @@ int main(int argc, char const *argv[]){
 
 			} 	//Leer libro
 			else{
-				
+				char input[14];
+				char id_editorial[18];
+
+				bool valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ID Editorial: ";
+			  		cin.getline(input,14,'\n');
+			  		if(strlen(input) == 13)
+			  			valid = true;
+			  	}
+			  	id_editorial[0] = input[0];
+				id_editorial[1] = input[1];
+				id_editorial[2] = input[2];
+				id_editorial[3] = '-';
+				id_editorial[4] = input[3];
+				id_editorial[5] = '-';
+				id_editorial[6] = input[4];
+				id_editorial[7] = input[5];
+				id_editorial[8] = '-';
+				id_editorial[9] = input[6];
+				id_editorial[10] = input[7];
+				id_editorial[11] = input[8];
+				id_editorial[12] = input[9];
+				id_editorial[13] = input[10];
+				id_editorial[14] = input[11];
+				id_editorial[15] = '-';
+				id_editorial[16] = input[12];
+				id_editorial[17] = '\0';
+
+				cout << id_editorial << endl;
+
+				long int ref = if_editorials.find(id_editorial);
+				cout << ref << endl;
+
+				Editorial editorial;
+
+
+				if(ref != -1){
+					ifstream in_file("book.dat",ios::in|ios::binary);
+					in_file.seekg(ref,ios::beg);
+					in_file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
+
+					in_file.close();
+				}
+
+				cout << "ID Editorial: " << editorial.getId() << endl;
+				cout << "Nombre: " << editorial.getNombre() << endl;
+				cout << "Direccion: " << editorial.getDireccion() << endl;
 			}	//Leer editorial
 		}	//Leer
 		else if(selec == 3){
@@ -251,17 +313,133 @@ int main(int argc, char const *argv[]){
 		else if(selec == 4){
 			if(!other_menu()){
 
-			}
+				char input[14];
+				char isbn[18];
+
+				bool valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ISBN: ";
+			  		cin.getline(input,14,'\n');
+			  		if(strlen(input) == 13)
+			  			valid = true;
+			  	}
+			  	isbn[0] = input[0];
+				isbn[1] = input[1];
+				isbn[2] = input[2];
+				isbn[3] = '-';
+				isbn[4] = input[3];
+				isbn[5] = '-';
+				isbn[6] = input[4];
+				isbn[7] = input[5];
+				isbn[8] = '-';
+				isbn[9] = input[6];
+				isbn[10] = input[7];
+				isbn[11] = input[8];
+				isbn[12] = input[9];
+				isbn[13] = input[10];
+				isbn[14] = input[11];
+				isbn[15] = '-';
+				isbn[16] = input[12];
+				isbn[17] = '\0';
+
+				cout << isbn << endl;
+
+				long int ref = if_books.find(isbn);
+				cout << ref << endl;
+
+				Book libro;
+
+
+				if(ref != -1){
+					ifstream in_file("book.dat",ios::in|ios::binary);
+					in_file.seekg(ref,ios::beg);
+					in_file.read(reinterpret_cast<char*>(&libro),sizeof(Book));
+
+					in_file.close();
+				}
+
+				libro.setMarked(true);
+				libro.setMark(hb.getOffset());
+				hb.setOffset(ref);
+				al_libros.push_back(ref);
+
+				hb.setDirty(true);
+
+				fstream out_file("book.dat",ios::out|ios::in|ios::binary);
+				out_file.seekp(ref,ios::beg);
+				out_file.write((char*)&libro,sizeof(Book));
+
+				out_file.flush();
+				out_file.close();
+
+			} 	//Leer libro
 			else{
-				
+				char input[14];
+				char id_editorial[18];
+
+				bool valid = false;
+			  	while (!valid){
+			  		cout << "Ingrese ID Editorial: ";
+			  		cin.getline(input,14,'\n');
+			  		if(strlen(input) == 13)
+			  			valid = true;
+			  	}
+			  	id_editorial[0] = input[0];
+				id_editorial[1] = input[1];
+				id_editorial[2] = input[2];
+				id_editorial[3] = '-';
+				id_editorial[4] = input[3];
+				id_editorial[5] = '-';
+				id_editorial[6] = input[4];
+				id_editorial[7] = input[5];
+				id_editorial[8] = '-';
+				id_editorial[9] = input[6];
+				id_editorial[10] = input[7];
+				id_editorial[11] = input[8];
+				id_editorial[12] = input[9];
+				id_editorial[13] = input[10];
+				id_editorial[14] = input[11];
+				id_editorial[15] = '-';
+				id_editorial[16] = input[12];
+				id_editorial[17] = '\0';
+
+				cout << id_editorial << endl;
+
+				long int ref = if_editorials.find(id_editorial);
+				cout << ref << endl;
+
+				Editorial editorial;
+
+
+				if(ref != -1){
+					ifstream in_file("book.dat",ios::in|ios::binary);
+					in_file.seekg(ref,ios::beg);
+					in_file.read(reinterpret_cast<char*>(&editorial),sizeof(Editorial));
+
+					in_file.close();
+				}
+
+				editorial.setMarked(true);
+				editorial.setMark(he.getOffset());
+				he.setOffset(ref);
+				al_edit.push_back(ref);
+
+				he.setDirty(true);
+
+				fstream out_file("editorial.dat",ios::out|ios::in|ios::binary);
+				out_file.seekp(ref,ios::beg);
+				out_file.write((char*)&editorial,sizeof(Editorial));
+
+				out_file.flush();
+				out_file.close();
 			}
 		}
 		else if(selec == 5){
 			if(!other_menu()){
-
+				cout << "No disponible en la version Alpha, still in development" << endl;
 			}
 			else{
-				
+				cout << "No disponible en la version Alpha, still in development" << endl;	
 			}
 		}
 		else if(selec == 6){
@@ -311,6 +489,27 @@ int main(int argc, char const *argv[]){
 			}
 		}
 		else if(selec == 7){
+			if(hb.isDirty()){
+				if_books.Reindex_Book("book.dat","bindex.dat");
+			}
+			if(he.isDirty()){
+				if_editorials.Reindex_Editorial("editorial.dat","eindex.dat");
+			}
+			hb.setDirty(false);
+			he.setDirty(false);
+
+			fstream archivo_libro("book.dat",ios::out|ios::in|ios::binary);
+			fstream archivo_edito("editorial.dat",ios::out|ios::in|ios::binary);
+
+			archivo_edito.write((char*)&he,sizeof(HeaderEditorial));
+			archivo_libro.write((char*)&hb,sizeof(HeaderBook));
+
+			archivo_libro.flush();
+			archivo_edito.flush();
+
+			archivo_libro.close();
+			archivo_edito.close();
+
 			exit(0);
 		}
 	}
